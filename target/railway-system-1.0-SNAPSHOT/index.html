@@ -3,11 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>John Galt</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/lodash.min.js"></script>
     <script type="text/javascript">
 
+        function renderResults(r) {
+            $("#my-list").html("");
+            $("#my-list").append("<p>"+r+"</p>");
+        }
+        function searchTickets(){
+            var fromCity = $("#from-station").val();
+            var toCity = $("#to-station").val();
+            var date = $("#date-of-search").val();
+            $.ajax({
+                url : "services/index?from="+fromCity+"&to="+toCity+"&date="+date,
+                dataType : 'text',
+                success : function(r) {
+                    console.log('Yeahhh');
+                    renderResults(r);
+                },error: function(xhr) {
+                    console.log(xhr);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+            $("#search").on('click', function () {
+                searchTickets();
+            });
+        });
     </script>
 </head>
 <body>
@@ -21,6 +46,8 @@
         <span id="date-box"><input type="text" placeholder="Date" id="date-of-search"><br></span>
         <span id="search-box"><button id="search" type="button" >Search</button></span>
     </div>
+
+    <div id="my-list"></div>
 
 
 </body>
