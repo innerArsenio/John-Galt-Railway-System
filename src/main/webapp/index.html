@@ -5,11 +5,42 @@
     <title>John Galt</title>
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/lodash.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css" />
+
     <script type="text/javascript">
 
+
         function renderResults(r) {
-            $("#my-list").html("");
-            $("#my-list").append("<p>"+r+"</p>");
+            $("#tr").html("").append("<tr>");
+            r.trainNames.forEach(function (e){
+                $("#tr").append("<td>"+e+"</td>");
+            })
+            $("#tr").append("</tr><tr>");
+            r.deptTimes.forEach(function (e){
+                $("#tr").append("<td>"+e+"</td>");
+            })
+            $("#tr").append("</tr><tr>");
+            //$("#arr-times").html("");
+            r.arrTimes.forEach(function (e) {
+                $("#tr").append("<td>" + e + "</td>");
+            })
+            $("#tr").append("</tr>");
+
+
+            /*$("#train-names").html("");
+            r.trainNames.forEach(function (e){
+                $("#train-names").append("<p>"+e+"</p>");
+            })
+            $("#dept-times").html("");
+            r.deptTimes.forEach(function (e){
+                $("#dept-times").append("<p>"+e+"</p>");
+            })
+            $("#arr-times").html("");
+            r.arrTimes.forEach(function (e){
+                $("#arr-times").append("<p>"+e+"</p>");
+            })*/
+
         }
         function searchTickets(){
             var fromCity = $("#from-station").val();
@@ -17,9 +48,11 @@
             var date = $("#date-of-search").val();
             $.ajax({
                 url : "services/index?from="+fromCity+"&to="+toCity+"&date="+date,
-                dataType : 'text',
+                dataType : 'json',
                 success : function(r) {
+                    //var obj = JSON.parse(r);
                     renderResults(r);
+
                 },error: function(xhr) {
                     console.log(xhr);
                 }
@@ -35,21 +68,32 @@
     </script>
 </head>
 <body>
+<div id="login-div">
+    <button>Login</button>
+</div>
+<div id="search-div">
+    <span id="from-box"><input placeholder="From" type="text" id="from-station"></span>
+    <span id="to-box"><input type="text" placeholder="Where" id="to-station"></span>
+    <span id="date-box"><input type="text" placeholder="Date" id="date-of-search"></span>
+    <span id="search-box"><button id="search" type="button" >Search</button></span>
+</div>
+<table border="1" id="tr">
 
-    <div id="login-div">
-        <button>Login</button>
+
+</table>
+
+<!--
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <span id="train-names"></span>
+        </div>
+        <div class="col-sm"><span id="dept-times"></span></div>
+        <div class="col-sm"><span id="arr-times"></span></div>
+
+
     </div>
-    <div id="search-div">
-        <span id="from-box"><input placeholder="From" type="text" id="from-station"><br></span>
-        <span id="to-box"><input type="text" placeholder="Where" id="to-station"><br></span>
-        <span id="date-box"><input type="text" placeholder="Date" id="date-of-search"><br></span>
-        <span id="search-box"><button id="search" type="button" >Search</button></span>
-    </div>
-
-    <div id="my-list">
-
-    </div>
-
+</div>-->
 
 </body>
 </html>
