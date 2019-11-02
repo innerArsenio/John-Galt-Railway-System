@@ -64,12 +64,21 @@
             $("#search").on('click', function () {
                 searchTickets();
             });
+            $("#login").on('click', function () {
+                loginPage();
+            });
+            $("#register").on('click', function () {
+                registerPage();
+            });
         });
     </script>
 </head>
 <body>
 <div id="login-div">
-    <button>Login</button>
+    <button id="login">Login</button>
+</div>
+<div id="register-div">
+    <button id="register">Register</button>
 </div>
 <div id="search-div">
     <span id="from-box"><input placeholder="From" type="text" id="from-station"></span>
